@@ -104,18 +104,18 @@ footer .src a{color:#aaa;text-decoration:underline}
 <p class="src">Sources: 1. <a href="https://www.cdc.gov/oral-health/prevention/oral-health-tips-for-children.html">CDC, Children's Oral Health</a> · 2. <a href="https://www.cdc.gov/oral-health/data-research/facts-stats/fast-facts-cavities.html">CDC, Fast Facts: Cavities</a> · 3. <a href="https://jdh.adha.org/content/83/3/111">Creeth et al., Journal of Dental Hygiene, 2009</a></p>
 </footer>
 <script>
-// BeMob tracking: if the visitor came through BeMob (?cid=...), send every shop link
+// BeMob tracking: if the visitor came through BeMob (?bemobdata=...), send every shop link
 // through the BeMob click URL. Otherwise links go straight to the product page.
 (function(){
   var CLICK_URL = "https://squt9.bemobtrcks.com/click";
-  var q = new URLSearchParams(window.location.search);
-  var cid = q.get("cid");
+  var KEY = "bemobdata";
+  var val = new URLSearchParams(window.location.search).get(KEY);
   try {
-    if (cid) sessionStorage.setItem("bemob_cid", cid);
-    else cid = sessionStorage.getItem("bemob_cid");
+    if (val) sessionStorage.setItem(KEY, val);
+    else val = sessionStorage.getItem(KEY);
   } catch (e) {}
-  if (!cid) return;
-  var target = CLICK_URL + "?cid=" + encodeURIComponent(cid);
+  if (!val) return;
+  var target = CLICK_URL + "?" + KEY + "=" + encodeURIComponent(val);
   document.querySelectorAll('a[href^="https://smilecore.co.uk/products/"]').forEach(function(a){
     a.href = target;
   });
