@@ -104,14 +104,20 @@ footer .src a{color:#aaa;text-decoration:underline}
 <p class="src">Sources: 1. <a href="https://www.cdc.gov/oral-health/prevention/oral-health-tips-for-children.html">CDC, Children's Oral Health</a> · 2. <a href="https://www.cdc.gov/oral-health/data-research/facts-stats/fast-facts-cavities.html">CDC, Fast Facts: Cavities</a> · 3. <a href="https://jdh.adha.org/content/83/3/111">Creeth et al., Journal of Dental Hygiene, 2009</a></p>
 </footer>
 <script>
-// Pass incoming ad parameters (utm_*, click ids) through to the shop links
+// BeMob tracking: if the visitor came through BeMob (?cid=...), send every shop link
+// through the BeMob click URL. Otherwise links go straight to the product page.
 (function(){
+  var CLICK_URL = "https://squt9.bemobtrcks.com/click";
   var q = new URLSearchParams(window.location.search);
-  if (!q.toString()) return;
-  document.querySelectorAll('a[href^="https://smilecore.co.uk"]').forEach(function(a){
-    var u = new URL(a.href);
-    q.forEach(function(v, k){ u.searchParams.set(k, v); });
-    a.href = u.toString();
+  var cid = q.get("cid");
+  try {
+    if (cid) sessionStorage.setItem("bemob_cid", cid);
+    else cid = sessionStorage.getItem("bemob_cid");
+  } catch (e) {}
+  if (!cid) return;
+  var target = CLICK_URL + "?cid=" + encodeURIComponent(cid);
+  document.querySelectorAll('a[href^="https://smilecore.co.uk/products/"]').forEach(function(a){
+    a.href = target;
   });
 })();
 </script>
