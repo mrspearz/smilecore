@@ -9,6 +9,15 @@
 body{background:var(--bg);color:var(--fg);font-family:var(--serif)}
 :root{--gut:16px}
 .wrap{max-width:680px;margin:0 auto;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px))}
+.head{max-width:700px;margin:0 auto}
+.layout{display:block}
+.side{display:none}
+@media (min-width:960px){
+.wrap{max-width:1180px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:56px;align-items:start}
+.side{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px)}
+.side .offer{margin-top:0}
+}
 #prog{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:30}
 header{background:var(--brand);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--brand)}
@@ -93,6 +102,7 @@ article p{margin-bottom:.9em}
 <header><div class="wrap mast"><div class="logo">Family Health <span>Insider</span></div><div class="nav">Health · Parenting · Dental · Tech</div></div></header>
 
 <div class="wrap">
+<div class="head">
 <div class="disc">Advertorial · Sponsored content in partnership with SmileCore</div>
 <div class="kicker">Parenting / Dental Health</div>
 <h1>She Stopped Brushing Her Daughter's Teeth For Three Months. Then The Dentist Asked Two Words: "What Changed?"</h1>
@@ -101,7 +111,9 @@ article p{margin-bottom:.9em}
 
 <img class="hero" style="width:100%;height:auto;object-fit:cover;border-radius:4px" src="https://cdn.shopify.com/s/files/1/0725/4533/7574/files/young-girl-and-mom-brushing-teeth-min-1024x672.jpg?v=1762463725" alt="Child brushing teeth">
 <figcaption>Mia, 8, now brushes on her own in 30 seconds. Photo courtesy of the family.</figcaption>
+</div>
 
+<div class="layout">
 <article>
 <p class="drop">I haven't brushed my daughter's teeth in three months and the dentist said they've never looked better. The hygienist thought I was lying until she saw Mia's mouth for herself.</p>
 <p>"Look at this," she said. Dr. Patel leaned in, examined, then looked at me with real confusion.</p>
@@ -178,13 +190,27 @@ article p{margin-bottom:.9em}
 <p style="margin-top:28px">This might be the year you stop supervising and start enjoying your evenings.</p>
 <a class="cta" href="/products/smileclear-one">Get SmileCore One For My Family →</a>
 <div class="sub">Buy 2, Get 1 Free applied at checkout</div>
-</article>
 
 <h2>Give Your Family Years Of Healthier Smiles With SmileCore One</h2>
 <img style="width:100%;height:auto;border-radius:6px" src="https://cdn.shopify.com/s/files/1/0668/4419/6967/files/Black_1_583f0f0b-5007-4800-a491-aec1902f5150.webp?v=1791704775" alt="SmileCore One brush">
 <p>Get the #1 dentist-recommended secret for keeping your family's teeth cleaner, gums healthier, and smiles brighter in just 30 seconds a day. SmileCore also makes an adult version, available on the same official site.</p>
 <p style="font-size:13px!important;color:var(--muted)">Buy only through the official SmileCore site. Counterfeit copies sold under similar names do not carry the real warranty or the 60-day money-back guarantee.</p>
 <a class="cta" href="/products/smileclear-one">Check Availability →</a>
+</article>
+
+<aside class="side">
+<div class="offer">
+<div class="kicker" style="margin:0 0 6px">Reader offer</div>
+<img style="width:100%;height:auto;border-radius:6px;margin-bottom:12px" src="https://cdn.shopify.com/s/files/1/0668/4419/6967/files/Black_1_583f0f0b-5007-4800-a491-aec1902f5150.webp?v=1791704775" alt="SmileCore One">
+<h3>SmileCore One</h3>
+<div class="price"><s>$98</s> <b>$49</b> · Buy 2, Get 1 Free</div>
+<div class="trust"><span>✓ 2-yr warranty</span><span>✓ 60-day guarantee</span><span>✓ Ships in 3 days</span></div>
+<p style="font-size:13px!important;margin:10px 0 0">Reader pricing reserved for <span class="timer sidetimer">15:00</span></p>
+<a class="cta" href="/products/smileclear-one">Check Availability →</a>
+<p style="font-size:11px!important;color:var(--muted);margin:8px 0 0">Buy only through the official site. Counterfeit copies don't carry the warranty.</p>
+</div>
+</aside>
+</div>
 
 <footer>ADVERTORIAL: This is a paid advertisement for SmileCore. Family Health Insider receives compensation for purchases made through links on this page. The story reflects one customer's personal experience; individual results vary. This content is not medical advice. Consult your dentist about your child's oral care. These statements have not been evaluated by the FDA.</footer>
 </div>
@@ -194,5 +220,5 @@ article p{margin-bottom:.9em}
 <script>
 const p=document.getElementById('prog'),b=document.getElementById('bar');
 addEventListener('scroll',()=>{const h=document.documentElement,s=h.scrollTop/(h.scrollHeight-h.clientHeight);p.style.width=(s*100)+'%';b.classList.toggle('on',s>.7)},{passive:true});
-let n=900;const t=document.getElementById('t');setInterval(()=>{if(n>0)n--;t.textContent=String(n/60|0).padStart(2,'0')+':'+String(n%60).padStart(2,'0')},1000);
+let n=900;const tEls=[document.getElementById('t'),...document.querySelectorAll('.sidetimer')];setInterval(()=>{if(n>0)n--;const s=String(n/60|0).padStart(2,'0')+':'+String(n%60).padStart(2,'0');tEls.forEach(el=>{if(el)el.textContent=s})},1000);
 </script>
